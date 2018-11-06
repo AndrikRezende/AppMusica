@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">AppMusica</string>
+    <string name="texto_tela1.1">Tela de biblioteca de música</string>
+    <string name="texto_tela2.1">Tela de tocar música</string>
+    <string name="texto_tela3.1">Tela de pagamento</string>
+    <string name="texto_tela1.2">Obstáculos técnicos: Não foi implementado a busca de arquivos de músicas no dispositivos.</string>
+    <string name="texto_tela2.2">Obstáculos técnicos: Não foi implementado tocar a música escolhida.</string>
+    <string name="texto_tela3.2">Obstáculos técnicos: Não foi implementado a compra de músicas.</string>
+    <string name="texto_navegacao1">Ir para tela de biblioteca de música</string>
+    <string name="texto_navegacao2">Ir para tela de tocar música</string>
+    <string name="texto_navegacao3">Ir para tela de pagamento</string>
+    <string name="solucao_tela_pagamento">Passos para fazer a tela de pagamento do aplicativo
+        \nAdicionar a biblioteca de cobrança no aplicativo:
+            \nCopiar o arquivo IInAppBillingService.aidl para o projeto do aplicativo
+
+        \nDefinir a permissão de cobrança:
+	        \nAdicionar &lt;uses-permission android:name="com.android.vending.BILLING" /> no arquivo AndroidManifest.xml
+
+        \nIniciar uma conexão com o Google Play:
+	        \nSincronizar a comunicação com Google Play
+
+                \n@Override
+                \npublic void onCreate(Bundle savedInstanceState) {
+
+                    \nString base64EncodedPublicKey;
+                    \n// compute your public key and store it in base64EncodedPublicKey
+                    \nmHelper = new IabHelper(this, base64EncodedPublicKey);
+                    \nmHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+                    	\npublic void onIabSetupFinished(IabResult result) {
+      	                    \nif (!result.isSuccess()) {
+                                \n// Oh no, there was a problem.
+                                \nLog.d(TAG, "Problem setting up In-app Billing: " + result);
+                            }
+                         \n// Hooray, IAB is fully set up!
+                         }
+                    });
+
+                }
+
+            \nFechar a comunicação com Google Play
+
+                \n@Override
+                \npublic void onDestroy() {
+                   \nsuper.onDestroy();
+                   \nif (mHelper != null) mHelper.dispose();
+                   \nmHelper = null;
+                }
+        \nFonte: https://developer.android.com/training/in-app-billing/preparing-iab-app.html#GetSample
+    </string>
+</resources>
